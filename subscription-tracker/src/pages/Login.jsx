@@ -12,7 +12,13 @@ function Login() {
 
   return (
     <div>
-      <Button onClick={signInWithGoogle}>Login</Button>
+      <Button 
+        onClick={signInWithGoogle}
+        variant="outlined"
+        color="info"
+      >
+          Login
+      </Button>
     </div>
   )
 }

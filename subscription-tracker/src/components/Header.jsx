@@ -4,9 +4,15 @@ import { auth } from "../firebase.js";
 
 function Header (){
   return (
-    <header className="p-10 flex justify-between items-center">
+    <header className="px-8 py-6 flex justify-between items-center border-solid border-gray-700 border-b-2">
       <h1 className="text-2xl text-cyan-500">Subscription Tracker</h1>
-      <Button onClick={() => auth.signOut()}>Logout</Button>
+      <Button 
+        onClick={() => auth.signOut()}
+        variant="outlined"
+        color="info"
+      >
+        Logout
+      </Button>
     </header>
   )
 }
