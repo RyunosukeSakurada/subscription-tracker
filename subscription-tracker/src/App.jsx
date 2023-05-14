@@ -2,6 +2,8 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import {useAuthState} from "react-firebase-hooks/auth"
 import {auth} from "./firebase"
+
+
 function App() {
   const [user] = useAuthState(auth)
 
