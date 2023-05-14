@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material"
-import { auth } from "../firebase.js";
+import { auth } from "../firebase";
 
 function Header (){
   return (
