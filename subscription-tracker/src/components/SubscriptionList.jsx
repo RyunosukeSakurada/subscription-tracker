@@ -6,18 +6,24 @@ function SubscriptionList() {
   const [subscriptions, setSubscriptions] = useState([]);
 
   useEffect(() => {
+    //Monitor changes.
     db.collection("subscriptions").onSnapshot((snapshot) => {
+      //Convert Firestore documents to a list of JavaScript objects and pass them to setSubscriptions.
       setSubscriptions(
+        //The snapshot object is an array that includes all the documents matching the query, 
+        //with each document represented as a DocumentSnapshot object.
+        //The map() method processes the received DocumentSnapshot object to create a new object.
         snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
       );
     });
   }, []);
 
   const handleDeleteSubscription = (id) => {
-    db.collection("subscriptions")
-      .doc(id)
-      .delete()
+    //Delete the document corresponding to the specified ID.
+    db.collection("subscriptions").doc(id).delete()
+      //Use the setSubscriptions() method to update the subscriptions state and remove the deleted document from the array.
       .then(() => {
+        //Use the filter() method to keep only the documents whose IDs do not match the ID of the deleted document.
         setSubscriptions(subscriptions.filter((subscription) => subscription.id !== id));
       })
       .catch((error) => {

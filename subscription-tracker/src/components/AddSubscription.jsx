@@ -10,11 +10,14 @@ function AddSubscription() {
 
   const handleAddSubscription = (e) => {
     e.preventDefault();
+    //Reference the "subscriptions" collection in Firestore.
     db.collection("subscriptions")
+      //Add a new document with two fields, "name" and "cost"
       .add({
         name,
         cost,
       })
+      //If writing to Firestore is successful, call setName("") and setCost("") to clear the form fields.
       .then(() => {
         setName("");
         setCost("");

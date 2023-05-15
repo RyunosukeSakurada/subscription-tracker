@@ -7,7 +7,9 @@ import Img from "../assets/login.jpg"
 
 function Login() {
   function signInWithGoogle() {
+    //Create an authentication provider for authenticating using a Google account.
     const provider = new firebase.auth.GoogleAuthProvider();
+    //Start sign-in with Google account in a pop-up window
     auth.signInWithPopup(provider);
   }
 
