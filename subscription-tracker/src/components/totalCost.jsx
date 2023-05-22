@@ -2,27 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { db,auth } from "../firebase";
 
 function TotalCost() {
+  //合計コストを保持するための変数
   const [totalCost, setTotalCost] = useState(0);
 
+  //初回のレンダリング時にサブスクリプションのコストの合計を計算し、totalCostの状態を更新
   useEffect(() => {
-    //Access the "subscriptions" collection in Firestore
+    //Firestoreのコレクションを参照
     const subscriptionRef = db.collection("subscriptions");
-    //Monitor real-time changes to data within the "subscriptions" collection. 
-    //This code will be called every time Firestore is updated.
-    const unsubscribe = subscriptionRef.onSnapshot((querySnapshot) => {
+    //ドキュメントの変更を監視/ドキュメントが追加、更新、削除されたときにトリガーが発生
+    const unsubscribe = subscriptionRef.onSnapshot((querySnapshot) => { //querySnapshot:変更があったドキュメントのスナップショット
       let total = 0;
-      //Retrieve the value of the "cost" property for each subscription, and store the sum of those values in "total".
       querySnapshot.forEach((doc) => {
-        //Return an object representing the data of a document retrieved from Firestore.
-        const subscription = doc.data();
-        //parseFloat: Function to convert a string to a floating point number (decimal number).
-        total += parseFloat(subscription.cost);
+        const subscription = doc.data(); //ドキュメントのデータオブジェクトを取得
+        total += parseFloat(subscription.cost); //subscription.costを浮動小数点数に変換し、totalに加算
       });
-      //Use setTotalCost() to set the value of "total" to the totalCost state.
+      //totalCostの状態を更新
       setTotalCost(total);
     });
-  
-    //Return the unsubscribe() function to stop monitoring with onSnapshot().
+    //クリーンアップ関数:コンポーネントがアンマウントされる際に監視を停止
     return () => unsubscribe();
   }, []);
   
