@@ -8,7 +8,7 @@ function App() {
   const [user] = useAuthState(auth)
 
   return (
-    <div className="bg-zinc-950 h-full text-neutral-200">
+    <div className="bg-zinc-950 min-h-full text-neutral-200">
       {user ? <Home /> : <Login/> }
     </div>
   )
